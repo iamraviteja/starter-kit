@@ -1,10 +1,24 @@
 <div class="container-fluid">
   <div class="jumbotron text-center">
     <h1>
-      <img class="logo" src="assets/ngx-rocket-logo.png" alt="angular logo"/>
+      <img class="logo" src="assets/ngx-rocket-logo.png" alt="angular logo" />
       <span translate>Hello world !</span>
     </h1>
     <app-loader [isLoading]="isLoading"></app-loader>
-    <q [hidden]="isLoading">{{quote}}</q>
+    <!-- <q [hidden]="isLoading">{{quote}}</q> -->
+  </div>
+  <div [hidden]="isLoading || isOffline">
+    <div class="list-group">
+      <div class="list-group-item" *ngFor="let story of stories">
+        <h4>{{ story.title }}</h4>
+        <div>
+          <span>{{ story.time_ago }}</span>
+          <span>{{ story.comments_count }} comments</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div [hidden]="isLoading || !isOffline">
+    <p>There is no network connection please check you connection</p>
   </div>
 </div>
