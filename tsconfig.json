@@ -1,4 +1,3 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -13,13 +12,8 @@
     "noImplicitAny": true,
     "suppressImplicitAnyIndexErrors": true,
     "target": "es2015",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2018", "dom"],
     "baseUrl": "./",
     "paths": {
       "@app/*": ["src/app/*"],
@@ -27,7 +21,9 @@
       "@core/*": ["src/app/@core/*"],
       "@shared": ["src/app/@shared"],
       "@shared/*": ["src/app/@shared/*"],
-      "@env/*": ["src/environments/*"]
+      "@env/*": ["src/environments/*"],
+      "portal-lib": ["dist/portal-lib"],
+      "portal-lib/*": ["dist/portal-lib/*"]
     }
   },
   "angularCompilerOptions": {

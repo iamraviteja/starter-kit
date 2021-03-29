@@ -3,7 +3,7 @@ import { finalize } from 'rxjs/operators';
 import { Story } from '@app/models/Story';
 
 import { FeedService } from './feed.service';
-import { PwaService } from '@app/@shared/pwa/pwa.service';
+import { NetworkStatusService } from 'portal-lib';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   isOffline = false;
   stories: Story[] = [];
 
-  constructor(private feedService: FeedService, private pwaService: PwaService) {}
+  constructor(private feedService: FeedService, private networkService: NetworkStatusService) {}
 
   ngOnInit() {
     this.isLoading = true;
@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
       .subscribe((data: Story[]) => {
         this.stories = data;
       });
-    this.pwaService.getNetworkStatus().subscribe((offlineStatus: boolean) => {
+    this.networkService.getNetworkStatus().subscribe((offlineStatus: boolean) => {
       this.isOffline = offlineStatus;
     });
   }
