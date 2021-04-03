@@ -15,7 +15,12 @@ import { ShellModule } from './shell/shell.module';
 import { AboutModule } from './about/about.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { PortalLibModule } from 'portal-lib';
+import { PortalLibModule, AsyncModule } from 'portal-lib';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+
+import { StoryReducer } from '@app/store/reducers/story.reducers';
+import { StoryEffects } from './store/effects/story.effects';
 
 @NgModule({
   imports: [
@@ -26,13 +31,16 @@ import { PortalLibModule } from 'portal-lib';
     TranslateModule.forRoot(),
     NgbModule,
     PortalLibModule,
+    AsyncModule.forRoot('i m from config object'),
     CoreModule,
     SharedModule,
     ShellModule,
     HomeModule,
     AboutModule,
     AuthModule,
-    AppRoutingModule, // must be imported as the last module as it contains the fallback route
+    AppRoutingModule,
+    StoreModule.forRoot({ stories: StoryReducer }, {}),
+    EffectsModule.forRoot([StoryEffects]), // must be imported as the last module as it contains the fallback route
   ],
   declarations: [AppComponent],
   providers: [],

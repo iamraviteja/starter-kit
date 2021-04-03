@@ -3,8 +3,20 @@
     <h1>
       <span translate>APP_NAME</span>
     </h1>
-    <p>
-      <i class="far fa-bookmark"></i> <span translate>Version</span> {{version}}
-    </p>
+    <p><i class="far fa-bookmark"></i> <span translate>Version</span> {{ version }}</p>
   </div>
+  <div>
+    <div class="list-group">
+      <div class="list-group-item" *ngFor="let story of stories | async">
+        <h4>{{ story.title }}</h4>
+        <div>
+          <span>{{ story.time_ago }}</span>
+          <span>{{ story.comments_count }} comments</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div [hidden]="!(stories | async).length">
+      <h6>There are no saved stories.</h6>
+    </div> -->
 </div>
