@@ -15,7 +15,7 @@ export class SaveStoryAction implements Action {
 
 export class FetchStoriesAction implements Action {
   readonly type = StoryActionTypes.FETCH_STORIES;
-  constructor() {}
+  constructor(public payload: string) {}
 }
 
 export class FetchStoriesSuccessAction implements Action {

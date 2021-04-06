@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { environment } from '@env/environment';
-import { CoreModule } from '@core';
+import { CoreModule, AppErrorHandler } from '@core';
 import { SharedModule } from '@shared';
 import { AuthModule } from '@app/auth';
 import { HomeModule } from './home/home.module';
@@ -43,7 +43,12 @@ import { StoryEffects } from './store/effects/story.effects';
     EffectsModule.forRoot([StoryEffects]), // must be imported as the last module as it contains the fallback route
   ],
   declarations: [AppComponent],
-  providers: [],
+  providers: [
+    {
+      provide: ErrorHandler,
+      useClass: AppErrorHandler,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

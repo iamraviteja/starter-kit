@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { finalize } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Story } from '@app/store/models/Story';
-
-import { FeedService } from './feed.service';
 import { NetworkStatusService } from 'portal-lib';
 import { AppState } from '@app/store/models/AppState';
 import { FetchStoriesAction, SaveStoryAction } from '@app/store/actions/story.actions';
-import { Observable } from 'rxjs';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -22,36 +20,32 @@ export class HomeComponent implements OnInit {
   stories$: Observable<Story[]>;
 
   constructor(
-    private feedService: FeedService,
     private networkService: NetworkStatusService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.isLoading$ = this.store.select((store) => store.stories.loading);
     this.stories$ = this.store.select((store) => store.stories.list);
     this.isError$ = this.store.select((store) => store.stories.error);
-    // this.feedService
-    //   .fetchFeedByType('news', 1)
-    //   .pipe(
-    //     finalize(() => {
-    //       this.isLoading = false;
-    //     })
-    //   )
-    //   .subscribe((data: Story[]) => {
-    //     this.stories = data;
-    //   });
+
     this.networkService.getNetworkStatus().subscribe((offlineStatus: boolean) => {
       this.isOffline = offlineStatus;
     });
 
-    this.store.dispatch(new FetchStoriesAction());
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      console.log('paramMap :: ', paramMap.get('page'), paramMap);
+      this.store.dispatch(new FetchStoriesAction(paramMap.get('page')));
+    });
   }
 
   /**
    * saveStory
    */
   public saveStory(i: number) {
+    throw new Error('this is an error');
+
     this.store.dispatch(new SaveStoryAction(i));
   }
 }
