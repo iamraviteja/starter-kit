@@ -6,6 +6,7 @@ import { NetworkStatusService } from 'portal-lib';
 import { AppState } from '@app/store/models/AppState';
 import { FetchStoriesAction, SaveStoryAction } from '@app/store/actions/story.actions';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { FeedService } from './feed.service';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private networkService: NetworkStatusService,
     private store: Store<AppState>,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private feedService: FeedService
   ) {}
 
   ngOnInit() {
@@ -44,8 +46,8 @@ export class HomeComponent implements OnInit {
    * saveStory
    */
   public saveStory(i: number) {
-    throw new Error('this is an error');
+    this.feedService.getData().subscribe();
 
-    this.store.dispatch(new SaveStoryAction(i));
+    // this.store.dispatch(new SaveStoryAction(i));
   }
 }

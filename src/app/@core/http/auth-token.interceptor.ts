@@ -1,3 +1,7 @@
+/**
+ * Reference link :
+ *  https://devdactic.com/ionic-jwt-refresh-token/
+ */
 import { Injectable } from '@angular/core';
 import {
   HttpRequest,
@@ -27,7 +31,9 @@ export class AuthTokenInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // We don't want to add token for some requests like login or refresh token itself
     // So we verify the url
+    console.log(request.url, this.isUrlExcluded(request.url));
     if (this.isUrlExcluded(request.url)) {
+      console.log(request.url);
       return next.handle(request);
     }
 
@@ -110,6 +116,6 @@ export class AuthTokenInterceptor implements HttpInterceptor {
   private isUrlExcluded(url: string): boolean {
     const excludedPaths = ['/auth', '/auth/logout', '/auth/refresh'];
 
-    return excludedPaths.filter((val) => url.indexOf('val') != -1).length > 0;
+    return excludedPaths.filter((val) => url.indexOf(val) != -1).length > 0;
   }
 }

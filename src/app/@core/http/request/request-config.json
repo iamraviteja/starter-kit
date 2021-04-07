@@ -1,0 +1,24 @@
+{
+  "paths": {
+    "feed": {
+      "path": "/{feedType}/{page}",
+      "mockData": true,
+      "mockDataPath": "./assets/mockData/feed.json"
+    },
+    "login": {
+      "path": "/auth"
+    },
+    "logout": {
+      "path": "/auth/logout"
+    },
+    "refreshToken": {
+      "path": "/auth/refresh"
+    },
+    "secret": {
+      "path": "/users/secretz",
+      "retryOptions": {
+        "maxRetryAttempts": 1
+      }
+    }
+  }
+}
