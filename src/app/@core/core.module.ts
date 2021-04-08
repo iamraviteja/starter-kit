@@ -8,6 +8,8 @@ import { RouteReusableStrategy } from './route-reusable-strategy';
 import { ApiPrefixInterceptor } from './http/api-prefix.interceptor';
 import { ErrorHandlerInterceptor } from './http/error-handler.interceptor';
 import { AuthTokenInterceptor } from './http/auth-token.interceptor';
+import { REQUEST_CONFIG, TimeoutHandlerInterceptor } from './http/timeout-handler.intercepter';
+import requestConfig from './http/request/request-config.json';
 
 @NgModule({
   imports: [CommonModule, HttpClientModule, TranslateModule, RouterModule],
@@ -28,8 +30,17 @@ import { AuthTokenInterceptor } from './http/auth-token.interceptor';
       multi: true,
     },
     {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TimeoutHandlerInterceptor,
+      multi: true,
+    },
+    {
       provide: RouteReuseStrategy,
       useClass: RouteReusableStrategy,
+    },
+    {
+      provide: REQUEST_CONFIG,
+      useValue: requestConfig,
     },
   ],
 })

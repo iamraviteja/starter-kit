@@ -20,5 +20,8 @@
         "maxRetryAttempts": 1
       }
     }
+  },
+  "defaults": {
+    "timeout": 10
   }
 }
